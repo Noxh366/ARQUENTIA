@@ -572,6 +572,86 @@
   .step:nth-child(3) { transition-delay: 0.3s; }
   .step:nth-child(4) { transition-delay: 0.45s; }
 
+  /* ── VIDEO SECTION ── */
+  #video-demo {
+    padding: 120px 60px;
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+  }
+  .video-container {
+    max-width: 1000px; margin: 0 auto;
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .video-container.visible { opacity: 1; transform: translateY(0); }
+  .video-frame {
+    position: relative;
+    border: 1px solid var(--border);
+    background: var(--black);
+    overflow: hidden;
+    box-shadow:
+      0 40px 80px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(0,188,212,0.08),
+      0 0 80px rgba(0,188,212,0.06);
+  }
+  .video-frame::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(to bottom, rgba(8,11,15,0.3) 0%, transparent 15%, transparent 85%, rgba(8,11,15,0.3) 100%),
+      linear-gradient(to right, rgba(8,11,15,0.2) 0%, transparent 10%, transparent 90%, rgba(8,11,15,0.2) 100%);
+  }
+  .video-frame::after {
+    content: '';
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background:
+      linear-gradient(var(--cyan), var(--cyan)) top left / 30px 1px no-repeat,
+      linear-gradient(var(--cyan), var(--cyan)) top left / 1px 30px no-repeat,
+      linear-gradient(var(--cyan), var(--cyan)) top right / 30px 1px no-repeat,
+      linear-gradient(var(--cyan), var(--cyan)) top right / 1px 30px no-repeat,
+      linear-gradient(var(--cyan), var(--cyan)) bottom left / 30px 1px no-repeat,
+      linear-gradient(var(--cyan), var(--cyan)) bottom left / 1px 30px no-repeat,
+      linear-gradient(var(--cyan), var(--cyan)) bottom right / 30px 1px no-repeat,
+      linear-gradient(var(--cyan), var(--cyan)) bottom right / 1px 30px no-repeat;
+    opacity: 0.6;
+  }
+  .video-frame video {
+    width: 100%; display: block;
+    object-fit: cover;
+  }
+  .video-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border);
+    background: rgba(0,188,212,0.06);
+    padding: 6px 16px; margin-bottom: 28px;
+    font-size: 0.62rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--cyan);
+  }
+  .video-badge::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--cyan);
+    animation: videoPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes videoPulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+  .video-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 24px; padding: 0 4px; flex-wrap: wrap; gap: 16px;
+  }
+  .video-meta-left h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white);
+  }
+  .video-meta-left p { font-size: 0.78rem; color: var(--muted); margin-top: 3px; line-height: 1.7; }
+  .video-meta-right {
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); text-align: right;
+  }
+  .video-meta-right span { color: var(--cyan); display: block; font-size: 0.72rem; margin-top: 2px; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 18px 28px; }
@@ -600,6 +680,7 @@
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#video-demo">Video</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <a href="#contacto" class="nav-cta">Solicitar Proyecto</a>
@@ -834,6 +915,39 @@
   </div>
 </section>
 
+<!-- VIDEO DEMO -->
+<section id="video-demo">
+  <div class="video-container">
+    <div class="section-header" style="text-align:left; margin-bottom:48px;">
+      <span class="section-label">Nuestro trabajo en acción</span>
+      <h2 class="section-title">VIDEO DEMO</h2>
+      <p class="section-subtitle">Así se ve la calidad Arquentia en movimiento</p>
+      <div class="section-rule" style="margin:20px 0 0;"></div>
+    </div>
+    <div class="video-badge">Reproducción Demo</div>
+    <div class="video-frame">
+      <video
+        controls
+        autoplay
+        muted
+        loop
+        playsinline
+        src="arquentia_demo.mp4"
+      ></video>
+    </div>
+    <div class="video-meta">
+      <div class="video-meta-left">
+        <h3>PROYECTO DEMOSTRATIVO</h3>
+        <p>Renders exteriores, ambientación nocturna y visualización arquitectónica.<br>Diseño y producción: Arquentia Studio.</p>
+      </div>
+      <div class="video-meta-right">
+        Formato de entrega
+        <span>Video · Renders · Planos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- QUOTE -->
 <section id="quote">
   <p class="quote-text">"La arquitectura no es sólo construcción. Es la materialización de un sueño, la traducción de una idea en un espacio que se vive, se siente y perdura."</p>
@@ -942,7 +1056,7 @@
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.section-header, .stat-item, .service-card, .step, .feature-visual, .feature-content, .contact-left, .contact-right, .quote-text, .quote-author').forEach(el => observer.observe(el));
+  document.querySelectorAll('.section-header, .stat-item, .service-card, .step, .feature-visual, .feature-content, .contact-left, .contact-right, .quote-text, .quote-author, .video-container').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
